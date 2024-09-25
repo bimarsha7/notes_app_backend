@@ -125,7 +125,8 @@ def schedule_reminder(note_id):
     db.session.commit()
 
     try:
-      send_reminder_email.delay(new_reminder.id)
+      send_reminder_email.apply_async(
+        args=[new_reminder.id], eta=_reminder_time)
     except Exception as e:
       db.session.rollback()
       return jsonify({'error': 'Failed to schedule reminder', 'details': str(e)}), 500

@@ -1,7 +1,22 @@
 import os
 
 class Config:
-  SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///notes.db')
+  def db_config_url():
+    from sqlalchemy import create_engine
+    from sqlalchemy.engine import URL
+
+    # Connect to your postgres DB
+    url = URL.create(
+      drivername=os.getenv('DB_DRIVER', 'postgresql'),
+      username=os.getenv('DB_USER', 'postgres'),
+      password=os.getenv('DB_PASSWORD', 'postgres'),
+      host=os.getenv('DB_HOST', 'localhost'),
+      port=os.getenv('DB_PORT', '5432'),
+      database=os.getenv('DB_NAME', 'notes_app'),
+    )
+    return create_engine(url).url
+  print(db_config_url())
+  SQLALCHEMY_DATABASE_URI = db_config_url()
   SQLALCHEMY_TRACK_MODIFICATIONS = False
   MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
   MAIL_PORT = os.getenv('MAIL_PORT', 587)

@@ -31,3 +31,4 @@ wcwidth==0.2.13
 Werkzeug==3.0.4
 wheel==0.44.0
 gunicorn==23.0.0
+psycopg2-binary==2.9.9
