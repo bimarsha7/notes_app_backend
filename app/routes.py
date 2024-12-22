@@ -7,6 +7,11 @@ from datetime import datetime
 
 bp = Blueprint('api/v1', __name__, url_prefix='/api/v1')
 
+
+@bp.route('/', methods=['GET'])
+def default():
+  return 'welcome to notes app'
+
 # Create Note
 @bp.route('/notes', methods=['POST'])
 def create_note():
