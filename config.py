@@ -10,12 +10,12 @@ class Config:
       drivername=os.getenv('DB_DRIVER', 'postgresql'),
       username=os.getenv('DB_USER', 'postgres'),
       password=os.getenv('DB_PASSWORD', 'postgres'),
-      host=os.getenv('DB_HOST', 'localhost'),
+      host=os.getenv('DB_HOST', '0.0.0.0'),
       port=os.getenv('DB_PORT', '5432'),
       database=os.getenv('DB_NAME', 'notes_app'),
     )
     return create_engine(url).url
-  print(db_config_url())
+
   SQLALCHEMY_DATABASE_URI = db_config_url()
   SQLALCHEMY_TRACK_MODIFICATIONS = False
   MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
